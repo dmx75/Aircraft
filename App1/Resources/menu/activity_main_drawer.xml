@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/civil"
+        android:title="Civil Aircrafts" />
+    <item
+        android:id="@+id/quizz"
+        android:title="Military Aircrafts" />
+    <item
+        android:id="@+id/scores"
+        android:title="Business Jets" />
+    <item
+        android:id="@+id/about"
+        android:title="Helicopters" />
+  </group>
+
+  <item android:title="Social">
+    <menu>
+      <item
+          android:id="@+id/fb"
+          android:title="Facebook" />
+      <item
+          android:id="@+id/gplus"
+          android:title="Google +" />
+      <item
+          android:id="@+id/twitter"
+          android:title="Twitter" />     
+    </menu>
+  </item>
+
+</menu>

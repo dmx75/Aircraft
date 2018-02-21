@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/GridLayout1"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:columnCount="2"
+      android:rowCount="2"
+      android:orientation="horizontal">
+    <Button
+        android:id="@+id/button1"
+        android:text="Civil"
+        android:background="@drawable/round_background"
+        android:drawableTop="@drawable/civil"
+        android:paddingTop="10dp"
+        android:width="128dp"
+        android:height="128dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@android:color/white"
+        android:layout_width="0dp"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill_horizontal" />
+    <Button
+        android:id="@+id/button2"
+        android:text="Military"
+        android:background="@drawable/round_background"
+        android:drawableTop="@drawable/military"
+        android:paddingTop="10dp"
+        android:width="128dp"
+        android:height="128dp"
+        android:textColor="@android:color/white" />
+    <Button
+        android:id="@+id/button3"
+        android:text="Business Jets"
+        android:background="@drawable/round_background"
+        android:drawableTop="@drawable/business"
+        android:paddingTop="10dp"
+        android:width="128dp"
+        android:height="128dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@android:color/white" />
+    <Button
+        android:id="@+id/button4"
+        android:text="Helicopters"
+        android:background="@drawable/round_background"
+        android:drawableTop="@drawable/helicopter"
+        android:paddingTop="10dp"
+        android:width="128dp"
+        android:height="128dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/white" />
+  </GridLayout>
+  
+</LinearLayout>
