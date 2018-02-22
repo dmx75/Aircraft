@@ -1,5 +1,6 @@
 ﻿using Aircraft.Entities;
 using Aircraft.Mock;
+using Android.Content;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -53,7 +54,8 @@ namespace App1.Fragments
 
         private void OnItemClick(object sender, int e)
         {
-            
+            Intent intent = new Intent(this.Activity, typeof(GameActivity));
+            StartActivity(intent);
         }
     }
 }
