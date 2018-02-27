@@ -8,6 +8,7 @@ using Android.Support.Design.Widget;
 using App1;
 using Android.Views;
 using App1.Fragments;
+using App1.Data;
 
 namespace Aircraft
 {
@@ -16,6 +17,9 @@ namespace Aircraft
     {
         DrawerLayout drawer;
         NavigationView navigationView;
+
+        public object DateEntryPoint { get; private set; }
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -25,6 +29,8 @@ namespace Aircraft
 
             V7Toolbar toolbar = FindViewById<V7Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
+
+
             if (savedInstanceState == null)
             {
                 Android.Support.V4.App.Fragment newFragment = new HomeFragment();
@@ -43,6 +49,9 @@ namespace Aircraft
 
             navigationView = (NavigationView)FindViewById(Resource.Id.nav_view);
             SetupDrawerContent(navigationView); //Calling Function 
+
+
+            DataEntryPoint.Instance.Init();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -58,16 +67,17 @@ namespace Aircraft
                 switch (e.MenuItem.ItemId)
                 {
                     case Resource.Id.civil:
+                        SetTitle(Resource.String.civil);
                         fragment = new CivilFragment();
                         break;
-                    case Resource.Id.quizz:
-                        fragment = new QuizzFragment();
+                    case Resource.Id.military:
+                        //fragment = new QuizzFragment();
                         break;
-                    case Resource.Id.scores:
-                        fragment = new ScoresFragment();
+                    case Resource.Id.business:
+                        //fragment = new ScoresFragment();
                         break;
-                    case Resource.Id.about:
-                        fragment = new AboutFragment();
+                    case Resource.Id.heli:
+                        //fragment = new AboutFragment();
                         break;
                 }
 

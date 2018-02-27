@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.Graphics;
+using App1.Data;
 using App1.Entities;
 using App1.Extensions;
 using Dropbox.Api;
@@ -49,6 +50,7 @@ namespace App1.Engine
 
         public async Task Download()
         {
+            //var dataEntryPoint = new DataEntryPoint();
             using (var dbx = new DropboxClient("C7mpgQEgUaAAAAAAAAAAGoGa6oPB-nPyWM5CBhAN_joOESncwn_TrrGRHsQQgAoo"))
             {
                 var list = await dbx.Files.ListFolderAsync(string.Empty);
@@ -57,11 +59,14 @@ namespace App1.Engine
                 {
                     using (var response = await dbx.Files.DownloadAsync("/" + item.Name))
                     {
-                        var stream = await response.GetContentAsStreamAsync();
+                        //var byteArray = await response.GetContentAsByteArrayAsync();
+                        //dataEntryPoint
 
-                        Bitmap bitmap = BitmapFactory.DecodeStream(stream);
-                        Images.Add(item.Name.RemoveExtension(), bitmap);
-                        Names.Add(item.Name.RemoveExtension());
+
+                        //var stream = await response.GetContentAsStreamAsync();
+                        //Bitmap bitmap = BitmapFactory.DecodeStream(stream);
+                        //Images.Add(item.Name.RemoveExtension(), bitmap);
+                        //Names.Add(item.Name.RemoveExtension());
                     }
                 }
             }
@@ -73,7 +78,7 @@ namespace App1.Engine
             foreach (var item in Images)
             {
                 var gameItem = new GameItem();
-                gameItem.Image = item.Value;
+                //gameItem.Image = item.Value;
                 gameItem.AddAnswer(item.Key, true);
 
                 foreach (var name in GetOtherAnswers(item.Key))

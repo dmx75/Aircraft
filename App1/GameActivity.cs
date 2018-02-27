@@ -1,10 +1,13 @@
-﻿
+﻿using Aircraft.Entities;
 using Android.App;
-using Android.Graphics;
+using Android.Content;
 using Android.OS;
 using Android.Widget;
-using App1.Engine;
+using App1.Data;
 using App1.Entities;
+using App1.Extensions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +16,8 @@ namespace App1
     [Activity(Label = "GameActivity")]
     public class GameActivity : Activity
     {
-        List<GameItem> _gameItems;
+        private Game _currentGame;
+        List<Image> _images;      
         GameItem _currentItem;
         int _cpt = 0;
 
@@ -23,10 +27,15 @@ namespace App1
         Button _btn3;
         Button _btn4;
 
+        private int _correctAnswersCount;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.game);
+
+            string xml = Intent.GetStringExtra("CurrentGame");
+            _currentGame = xml.ToObject<Game>();
 
             _image = FindViewById<ImageView>(Resource.Id.image);
 
@@ -40,9 +49,7 @@ namespace App1
             _btn3.Click += btn_Click;
             _btn4.Click += btn_Click;
 
-            GameEngine.Instance.InitGame();
-
-            _gameItems = GameEngine.Instance.GetGameItems();
+            _images = DataEntryPoint.Instance.Images.Get(_currentGame.Category, _currentGame.Name);
 
             SetGameItem();
         }
@@ -54,7 +61,8 @@ namespace App1
             {
                 if (button.Text == _currentItem.GetCorrectAnswer())
                 {
-                    Toast.MakeText(this,"Correct",ToastLength.Short).Show();
+                    _correctAnswersCount++;
+                    Toast.MakeText(this, "Correct", ToastLength.Short).Show();
                 }
                 else
                 {
@@ -63,21 +71,42 @@ namespace App1
             }
 
             _cpt++;
-            if (_cpt < _gameItems.Count)
+            if (_cpt < _images.Count)
             {
                 SetGameItem();
             }
             else
             {
-                //TODO : results
+
+                var intent = new Intent(this, typeof(ResultActivity));
+
+                if (_correctAnswersCount > _currentGame.Score)
+                {
+                    _currentGame.Score = _correctAnswersCount;
+                    DataEntryPoint.Instance.Games.Update(_currentGame);
+                    
+                }
+
+                intent.PutExtra("CurrentGame", JsonConvert.SerializeObject(_currentGame));
+                StartActivity(intent);               
             }
         }
 
         private void SetGameItem()
         {
-            _currentItem = _gameItems[_cpt];
+            var names = DataEntryPoint.Instance.Images.GetOtherNames(_images[_cpt]);
 
-            _image.SetImageBitmap(_currentItem.Image);
+            _image.SetImageURI(Android.Net.Uri.FromFile(new Java.IO.File(_images[_cpt].Path)));
+
+            _currentItem = new GameItem();
+            _currentItem.AddAnswer(_images[_cpt].Name, true);
+            foreach (var item in names)
+            {
+                _currentItem.AddAnswer(item, false);
+            }
+           
+            _currentItem.Shuffle();
+
             _btn1.Text = _currentItem.Answers[0].Value;
             _btn2.Text = _currentItem.Answers[1].Value;
             _btn3.Text = _currentItem.Answers[2].Value;

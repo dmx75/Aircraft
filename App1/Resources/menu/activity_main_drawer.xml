@@ -4,29 +4,36 @@
   <group android:checkableBehavior="single">
     <item
         android:id="@+id/civil"
-        android:title="Civil Aircrafts" />
+        android:title="@string/civil" 
+        android:icon="@drawable/civil"/>
     <item
-        android:id="@+id/quizz"
-        android:title="Military Aircrafts" />
+        android:id="@+id/military"
+        android:title="@string/military"
+        android:icon="@drawable/military" />
     <item
-        android:id="@+id/scores"
-        android:title="Business Jets" />
+        android:id="@+id/business"
+        android:title="@string/business"
+        android:icon="@drawable/business" />
     <item
-        android:id="@+id/about"
-        android:title="Helicopters" />
+        android:id="@+id/heli"
+        android:title="@string/heli"
+        android:icon="@drawable/helicopter" />
   </group>
 
   <item android:title="Social">
     <menu>
       <item
           android:id="@+id/fb"
-          android:title="Facebook" />
+          android:title="Facebook"
+          android:icon="@drawable/facebook"/>
       <item
           android:id="@+id/gplus"
-          android:title="Google +" />
+          android:title="Google +" 
+          android:icon="@drawable/googleplus"/>
       <item
           android:id="@+id/twitter"
-          android:title="Twitter" />     
+          android:title="Twitter" 
+          android:icon="@drawable/twitter"/>     
     </menu>
   </item>
 

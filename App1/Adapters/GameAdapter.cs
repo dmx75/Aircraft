@@ -50,9 +50,10 @@ namespace App1.Adapters
             GameAdapterViewHolder vh = holder as GameAdapterViewHolder;
 
             var item = Games.ElementAt(position);
+            vh.NoteProgressBar.Max = item.Total;
             vh.Name.Text = item.Name;
-            vh.Result.Text = string.Format("{0}/20", item.Result);
-            vh.NoteProgressBar.Progress = item.Result;
+            vh.Result.Text = string.Format("{0}/{1}", item.Score, item.Total);
+            vh.NoteProgressBar.Progress = item.Score;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -76,8 +77,7 @@ namespace App1.Adapters
                 Name = itemView.FindViewById<TextView>(Resource.Id.name);
                 Result = itemView.FindViewById<TextView>(Resource.Id.result);
                 NoteProgressBar = ItemView.FindViewById<ProgressBar>(Resource.Id.progressBar);
-                NoteProgressBar.Max = 20;
-                //NoteProgressBar.Progress = 16;
+                //NoteProgressBar.Max = 20;
                 itemView.Click += (sender, e) => listener(base.LayoutPosition);
                 itemView.LongClick += (sender, e) => longClickListener(base.LayoutPosition);
             }

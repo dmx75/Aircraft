@@ -7,7 +7,7 @@ namespace App1.Entities
 {
     public class GameItem
     {
-        public Bitmap Image { get; set; }
+        //public Bitmap Image { get; set; }
 
         public List<Answer> Answers { get; set; }
 
