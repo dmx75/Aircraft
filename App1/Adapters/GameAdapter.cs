@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Aircraft.Entities;
+using Android.Content.Res;
+using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using App1.Helpers;
 
 namespace App1.Adapters
 {
@@ -50,10 +55,16 @@ namespace App1.Adapters
             GameAdapterViewHolder vh = holder as GameAdapterViewHolder;
 
             var item = Games.ElementAt(position);
+            vh.NoteProgressBar.Progress = item.Score;
             vh.NoteProgressBar.Max = item.Total;
             vh.Name.Text = item.Name;
             vh.Result.Text = string.Format("{0}/{1}", item.Score, item.Total);
-            vh.NoteProgressBar.Progress = item.Score;
+
+            //float percentage = ((float)item.Score / (float)item.Total) * 100;
+            //var currentColor = ColorHelper.GetBlendedColor(percentage);         
+            //Drawable progressDrawable = vh.NoteProgressBar.ProgressDrawable.Mutate();
+            //progressDrawable.SetColorFilter(currentColor, PorterDuff.Mode.SrcIn);
+           
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -77,7 +88,7 @@ namespace App1.Adapters
                 Name = itemView.FindViewById<TextView>(Resource.Id.name);
                 Result = itemView.FindViewById<TextView>(Resource.Id.result);
                 NoteProgressBar = ItemView.FindViewById<ProgressBar>(Resource.Id.progressBar);
-                //NoteProgressBar.Max = 20;
+
                 itemView.Click += (sender, e) => listener(base.LayoutPosition);
                 itemView.LongClick += (sender, e) => longClickListener(base.LayoutPosition);
             }
